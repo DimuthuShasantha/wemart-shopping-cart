@@ -7,7 +7,7 @@ import { username } from "better-auth/plugins";
 const prisma = new PrismaClient();
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: "mongodb", // or "mysql", "postgresql", ...etc
+    provider: "mysql", // or "mysql", "postgresql", ...etc
   }),
   emailAndPassword: {
     enabled: true,

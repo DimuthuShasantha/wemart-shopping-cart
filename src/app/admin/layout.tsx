@@ -15,12 +15,27 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-const AdminLayout = ({ children }: { children: ReactNode }) => {
+const AdminLayout = async ({ children }: { children: ReactNode }) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <>
       <SidebarProvider>
-        <AppSidebar />
+        <AppSidebar
+          name={session?.user?.name as string}
+          email={session?.user?.email as string}
+          avatar={session?.user?.image as string}
+        />
         <SidebarInset>
           <header className="flex h-16 shrink-0 items-center justify-between gap-2 mr-5">
             <div className="flex items-center gap-2 px-4">

@@ -29,14 +29,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Logo from "../../../public/logo.png";
-import { title } from "process";
+
+interface AppSidebarProps {
+  name?: string;
+  email?: string;
+  avatar?: string;
+}
 
 const data = {
-  user: {
-    name: "admin",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -60,6 +60,17 @@ const data = {
         {
           title: "Items",
           url: "/admin/inventory/items",
+        },
+      ],
+    },
+    {
+      title: "Settings",
+      url: "/admin/settings",
+      icon: Settings2,
+      items: [
+        {
+          title: "User Accounts",
+          url: "/admin/settings/user-accounts",
         },
       ],
     },
@@ -95,7 +106,12 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  name,
+  email,
+  avatar,
+  ...props
+}: AppSidebarProps & React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -122,7 +138,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            name: name as string,
+            email: email as string,
+            avatar: avatar as string,
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );

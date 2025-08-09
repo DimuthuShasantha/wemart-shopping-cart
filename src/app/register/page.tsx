@@ -22,7 +22,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { registerSchema, type RegisterFormData } from "@/lib/validations/auth";
+import { registerSchema, type RegisterFormData } from "@/lib/zodSchemas";
 import { signUp } from "@/lib/auth-client";
 import { toast } from "sonner";
 
